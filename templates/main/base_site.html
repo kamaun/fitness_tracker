@@ -1,0 +1,58 @@
+{% extends 'admin/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block usertools %}{% endblock %}
+{% block firstdivclass %}main-page{% endblock %}
+{% block breadcrumbs %}{% endblock %}
+{% block header %}
+    <header>
+        <nav id="navbar" class="navbar navbar-expand-lg text-uppercase navbar-dark bg-dark fixed-top" style="opacity: .80;">
+            <div id="branding">
+                 <a href="{% url 'home:home' %}" id="branding" class="navbar-brand">Fitness Keeper</a>
+            </div>
+            <!-- Navigation Inner -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#homeNavBarMenu" aria-controls="homeNavBarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Navigation Menu -->
+            <div class="collapse navbar-collapse" id="homeNavBarMenu">
+                {% block navigation %}
+                    <ul class="nav navbar-nav mr-auto">
+                        <li class="list-unstyled nav-item active"><a class="nav-link" href="{% url 'home:home' %}#home">Home</a></li>
+                        <li class="list-unstyled nav-item"><a class="nav-link" href="{% url 'home:home' %}#about">About us</a></li>
+                        <li class="list-unstyled nav-item"><a class="nav-link" href="{% url 'home:home' %}#features">Features</a></li>
+                        <li class="list-unstyled nav-item"><a class="nav-link" href="{% url 'home:home' %}#clients">Gymnasts</a></li>
+                        <li class="list-unstyled nav-item"><a class="nav-link" href="{% url 'home:home' %}#testimonial">Testimonial</a></li>
+                        <li class="list-unstyled nav-item"><a class="nav-link" href="{% url 'home:home' %}#contact">Contact</a></li>
+                        <li class="list-unstyled nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <svg class="bi bi-person" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" d="M13 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM3.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                                </svg>
+                                Account
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                                {% if user.is_authenticated %}
+                                    {% if user.group == 'Trainers' %}
+                                        <a class="dropdown-item" href="#">View PT Dashboard</a>
+                                    {% elif  user.group == 'Clients' %}
+                                        <a class="dropdown-item" href="#">View Client Dashboard</a>
+                                    {% else %}
+                                        <a class="dropdown-item" href="{% url 'admin:index' %}" target="_blank">View Admin</a>
+                                    {% endif %}
+                                    <div class="nav-divider"></div>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                                {% else %}
+                                    <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                                    <a class="dropdown-item" href="#">Register</a>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                {% endblock %}
+            </div><!-- End Navigation Menu -->
+        </nav>
+    </header>
+{% endblock %}
+{% block content_title %}{% endblock %}
+{% block content_type %}{% endblock %}
+{% block coltype %}{% endblock %}

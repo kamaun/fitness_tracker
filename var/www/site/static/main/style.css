@@ -1,0 +1,44 @@
+
+.parallax {
+  /* Set a specific height */
+  height: 700px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+/*Footer*/
+.footer {
+    padding: 45px !important;
+    text-align: center;
+    background: #222;
+}
+
+
+/*Jumbotron*/
+.jumbotron{
+    margin-bottom: 0rem !important;
+}
+
+
+/*Features*/
+.marketing .col-lg-4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+
+.features_card{
+    text-align: center;
+    background: azure;
+    border: 1px;
+    border-color: darkolivegreen;
+    /*margin-left: 10px;*/
+    /*margin-right: 10px;*/
+    margin-top: 18%;
+
+}

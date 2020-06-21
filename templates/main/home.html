@@ -1,0 +1,118 @@
+{% extends 'main/base_site.html' %}
+{% load static %}
+{% block content %}
+    <section id="home">
+        <div id="homeCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#homeCarousel" data-slide-to="1" class=""></li>
+                <li data-target="#homeCarousel" data-slide-to="2" class=""></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item parallax active" style="background-image: url('{% static 'main/images/1.jpg' %}')">
+{#                    <img class="first-slide" src="{% static 'main/images/1.jpg' %}" alt="First slide">#}
+                    <div class="container">
+                        <div class="carousel-caption text-lg-center text-success">
+                            <h1 class="display-3">Welcome to Fitness Keeper!</h1>
+                            <p class="text-dark font-weight-bold">
+                                Where freelance Personal Trainers connect with their clients. Trainers and their
+                                respective clients can keep track of client workouts, fitness progress and communicate
+                                with each other.
+                            </p>
+                            <p><a class="btn btn-outline-success btn-light btn-lg" href="#" role="button">Sign up today</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item parallax" style="background-image: url('{% static 'main/images/2.jpg' %}')">
+{#                    <img class="second-slide" src="{% static 'main/images/2.jpg' %}" alt="Second slide">#}
+                    <div class="container">
+                        <div class="carousel-caption text-lg-right text-success">
+                            <h1 class="display-3">Personal Trainers.</h1>
+                            <p class="text-dark font-weight-bold">
+                                Are you a freelance personal trainer looking to expand you network of client while
+                                maintaining and monitoring your clients' workouts and progress?
+                            </p>
+                            <p><a class="btn btn-outline-success btn-light btn-lg" href="#" role="button">Register Here</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item parallax" style="background-image: url('{% static 'main/images/5.jpg' %}')">
+{#                    <img class="third-slide" src="{% static 'main/images/5.jpg' %}" alt="Third slide">#}
+                    <div class="container">
+                        <div class="carousel-caption text-lg-left text-success">
+                            <h1 class="display-3">Fitness Enthusiasts.</h1>
+                            <p class="text-dark font-weight-bold">
+                                Are you looking for the right motivation? Need someone to give you the boost you need in
+                                order to reach your fitness goals?
+                            </p>
+                            <p><a class="btn btn-outline-success btn-light btn-lg" href="#" role="button">Register Here</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+
+    <section id="aboutus">
+        <div class="jumbotron" style="height: 500px; background-image: url('{% static 'main/images/bgd/background5.jpg' %}')">
+            <div class="container text-center text-white align-middle">
+                <h2 class="display-4">About Us</h2>
+                <p>
+                    We provide a platform where Personal trainers can manage their clients fitness progress and trainees
+                    can also monitor there own progress. The platform also provides communication functions that allow
+                    the trainers and their clients to relay messages and schedule meeting. Trainers can list out their
+                    own services and clients can choose they ones they want. Trainers can created workouts through the
+                    site and assign them to their clients.
+                </p>
+
+                <p>
+                    {% if user.is_authenticated %}
+                        <a class="btn btn-outline-success btn-light btn-lg" href="#" role="button">Go to dashboard &raquo;</a>
+                    {% else %}
+                        <a class="btn btn-outline-success btn-light btn-lg" href="#" role="button">Sign In &raquo;</a>
+                    {% endif %}
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="parallax" style="background-image: url('{% static 'main/images/4.jpg' %}')">
+        <div class="container marketing align-self-auto">
+            <div class="row text-center justify-content-between">
+                <div class="col-md-3 features_card rounded">
+                    <img class="rounded-circle" src="{% static 'main/images/default.jpg' %}" width="140" height="140" alt="">
+                    <h2>Fitness Analytics</h2>
+                    <p>
+                        We collect data from every set, rep and test collected by a client or their personal trainer.
+                        This data is only available to those who are authorised to see it
+                    </p>
+                </div>
+                <div class="col-md-3 features_card rounded">
+                    <img class="rounded-circle" src="{% static 'main/images/default.jpg' %}" width="140" height="140" alt="">
+                    <h2>Fitness Analytics</h2>
+                    <p>
+                        We collect data from every set, rep and test collected by a client or their personal trainer.
+                        This data is only available to those who are authorised to see it
+                    </p>
+                </div>
+                <div class="col-md-3 features_card rounded">
+                    <img class="rounded-circle" src="{% static 'main/images/default.jpg' %}" width="140" height="140" alt="">
+                    <h2>Fitness Analytics</h2>
+                    <p>
+                        We collect data from every set, rep and test collected by a client or their personal trainer.
+                        This data is only available to those who are authorised to see it
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

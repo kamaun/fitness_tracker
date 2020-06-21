@@ -1,0 +1,124 @@
+{% load i18n static %}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"> <!-- Ionicons -->
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{% static 'main/images/favicon.jpg' %}" />
+
+    {% block extrastyle %}
+        <link rel="stylesheet" href="{% static 'main/style.css' %}">
+    {% endblock %}
+    {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}">{% endif %}
+    {% block extrahead %}{% endblock %}
+    {% block responsive %}
+        <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive.css" %}">
+        {% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% static "admin/css/responsive_rtl.css" %}">{% endif %}
+    {% endblock %}
+    {% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE">{% endblock %}
+
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}" data-admin-utc-offset="{% now "Z" %}">
+
+    <!-- Container -->
+    <div id="{% block firstdivclass %}container{% endblock %}">
+
+        {% if not is_popup %}
+            <!-- Header -->
+            {% block header %}
+                <div id="header">
+                    <div id="branding">
+                        {% block branding %}{% endblock %}
+                    </div>
+                    {% block usertools %}
+                        {% if has_permission %}
+                            <div id="user-tools">
+                                {% block welcome-msg %}
+                                    {% trans 'Welcome,' %}
+                                    <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+                                {% endblock %}
+                                {% block userlinks %}
+                                    {% if site_url %}
+                                        <a href="{{ site_url }}">{% trans 'View site' %}</a> /
+                                    {% endif %}
+                                    {% if user.is_active and user.is_staff %}
+                                        {% url 'django-admindocs-docroot' as docsroot %}
+                                        {% if docsroot %}
+                                            <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                                        {% endif %}
+                                    {% endif %}
+                                    {% if user.has_usable_password %}
+                                    <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+                                    {% endif %}
+                                    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+                                {% endblock %}
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                    {% block nav-global %}{% endblock %}
+                </div>
+            {% endblock %}
+            <!-- END Header -->
+            {% block breadcrumbs %}
+                <div class="breadcrumbs">
+                    <a href="{% url 'admin:index' %}">
+                        {% trans 'Home' %}
+                    </a>
+                    {% if title %} &rsaquo; {{ title }}{% endif %}
+                </div>
+            {% endblock %}
+        {% endif %}
+
+        {% block messages %}
+            {% if messages %}
+                <ul class="messagelist">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                            {{ message|capfirst }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endblock messages %}
+
+        <!-- Content -->
+        <main role="main" id="{% block content_type %}content{% endblock %}" class="{% block coltype %}colM{% endblock %}">
+            {% block pretitle %}{% endblock %}
+            {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+            {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+            {% endblock %}
+            {% block sidebar %}{% endblock %}
+            <br class="clear">
+        </main>
+        <!-- END Content -->
+    </div>
+    <!-- END Container -->
+    <footer id="footer" class="modal-footer align-bottom navbar-expand-lg navbar-dark bg-dark">
+        {% block footer %}
+            <div class="container">
+                <strong>Copyright &copy; 2014-2040.</strong>
+                All rights reserved.
+                <div class="float-right d-none d-sm-inline-block">
+                  Created by <a target="_blank" href="http:\\devkevops.com">Devkevops.com</a>
+                </div>
+            </div>
+        {% endblock %}
+    </footer>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

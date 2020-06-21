@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config, Csv
+# from django.contrib.auth.models import User
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +32,10 @@ ALLOWED_HOSTS = config('ALLOWED_HOST', cast=Csv())
 # Application definition
 INSTALLED_APPS = [
     # Added applications ######
+    'trainer.apps.TrainerConfig',
+    'client.apps.ClientConfig',
+    'home.apps.HomeConfig',
+    'bootstrap4',
     'gunicorn',
     'crispy_forms',
     'phone_field',
@@ -138,6 +143,7 @@ STATIC_DIRS = [
     'var/www/site/static',
 ]
 STATICFILE_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'var/www/site/media')
@@ -155,7 +161,8 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 EMAIL_SUBJECT_PREFIX = '[FITNESS]'
-
+RECAPTURE_SITE_KEY = config('RECAPTURE_SITE_KEY')
+RECAPTURE_SECRET_KEY = config('RECAPTURE_SECRET_KEY')
 
 # Additional Settings
 # docs.djangoproject.com/en/3.0/ref/settings
@@ -168,10 +175,15 @@ SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', cast=bool)
 DEBUG_PROPAGATE_EXCEPTIONS = config('DEBUG_PROPAGATE_EXCEPTIONS', cast=bool)
 COMPRESS_ENABLED = config('COMPRESS_ENABLED', cast=bool)
 
-# AWS Storage Setting
-# AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-# AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-# AWS_S3_FILE_OVERWRITE = True  # replaced the files causes only one user on the site.
-# AWS_DEFAULT_ACL = None
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# if config('ONSERVER', cast=bool):
+#     # AWS Storage Setting
+#     AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+#     AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+#     AWS_S3_FILE_OVERWRITE = True  # replaced the files causes only one user on the site.
+#     AWS_DEFAULT_ACL = None
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
+LOGIN_REDIRECT_URL = "home:home"
+LOGOUT_REDIRECT_URL = 'login'
